@@ -1,0 +1,2 @@
+org/yourssuproject/web/MemosApiControllerTest.java
+ org.yourssuproject.web.MemosApiControllerTest
