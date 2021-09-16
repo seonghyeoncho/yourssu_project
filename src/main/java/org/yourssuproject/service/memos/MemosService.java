@@ -3,6 +3,7 @@ package org.yourssuproject.service.memos;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yourssuproject.domain.memos.Memos;
@@ -13,6 +14,7 @@ import org.yourssuproject.web.dto.MemosUpdateRequestDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,11 +55,16 @@ public class MemosService {
     }
 
     @Transactional
-    public List<MemosResponseDto> searchByDate(String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        LocalDateTime dateTime = localDate.atStartOfDay();
+    public List<MemosResponseDto> searchByDate(String date, Pageable pageable) {
+        System.out.println(">>>>>>>>>> date: " + date);
 
-        List<Memos> memosList = memosRepository.findByCreatedAtContaining(dateTime);
+        LocalDateTime startDate = LocalDateTime.of(LocalDate.parse(date), LocalTime.of(0,0,0));
+        LocalDateTime endDate = LocalDateTime.of(LocalDate.parse(date), LocalTime.of(23,59,59));
+
+        System.out.println(">>>>>>>>>>" + startDate);
+        System.out.println(">>>>>>>>>>" + endDate);
+
+        List<Memos> memosList = memosRepository.findByCreatedAtBetween(startDate, endDate, pageable);
         List<MemosResponseDto> memoDtoList = new ArrayList<>();
 
         if (memosList.isEmpty()) return memoDtoList;
@@ -69,17 +76,17 @@ public class MemosService {
         return memoDtoList;
     }
 
-    @Transactional
-    public Page<Memos> page(Pageable pageable) {
-        Page<Memos> memosList = memosRepository.findAll(pageable);
-        List<MemosResponseDto> memoDtoList = new ArrayList<>();
-
+//    @Transactional
+//    public List<MemosResponseDto> page(Pageable pageable) {
+//        Page<Memos> memosList = memosRepository.findAll(pageable);
+//        List<MemosResponseDto> memoDtoList = new ArrayList<>();
+//
 //        if (memosList.isEmpty()) return memoDtoList;
 //
 //        for(Memos memo : memosList) {
 //            memoDtoList.add(new MemosResponseDto(memo));
 //        }
-
-        return memosList;
-    }
+//
+//        return memoDtoList;
+//    }
 }

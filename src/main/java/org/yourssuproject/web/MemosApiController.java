@@ -2,6 +2,7 @@ package org.yourssuproject.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.yourssuproject.domain.memos.Memos;
 import org.yourssuproject.service.memos.MemosService;
@@ -27,14 +28,14 @@ public class MemosApiController {
     }
 
     @GetMapping("/memos")
-    public List<MemosResponseDto> searchByDate(@RequestParam Map<String, String> param){
-        return memosService.searchByDate(param.get("date"));
+    public List<MemosResponseDto> searchByDate(@RequestParam Map<String, String> param, @PageableDefault(size = 5) Pageable pageable){
+        return memosService.searchByDate(param.get("date"), pageable);
     }
 
-    @GetMapping("/memos/page")
-    public Page<Memos> page(Pageable pageable) {
-        return memosService.page(pageable);
-    }
+//    @GetMapping("/memos")
+//    public List<MemosResponseDto> page(@PageableDefault(size = 5) Pageable pageable) {
+//        return memosService.page(pageable);
+//    }
 
     @GetMapping("/memos/{memoId}")
     public MemosResponseDto detail(@PathVariable Long memoId) { return memosService.detail(memoId); }

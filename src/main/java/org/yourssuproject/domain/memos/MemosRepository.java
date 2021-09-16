@@ -1,5 +1,6 @@
 package org.yourssuproject.domain.memos;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -10,5 +11,5 @@ public interface MemosRepository extends JpaRepository<Memos, Long> {
     @Query("SELECT m FROM Memos m ORDER BY m.id DESC")
     List<Memos> findAllDesc();
 
-    List<Memos> findByCreatedAtContaining(LocalDateTime date);
+    List<Memos> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 }

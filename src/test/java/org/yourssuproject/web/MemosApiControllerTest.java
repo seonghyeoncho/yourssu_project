@@ -57,6 +57,7 @@ public class MemosApiControllerTest {
         ResponseEntity<MemosResponseDto> responseEntity = restTemplate.postForEntity(url, requestDto, MemosResponseDto.class);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getText()).isEqualTo(text);
     }
 
     @Test
@@ -68,7 +69,7 @@ public class MemosApiControllerTest {
 
         Long updatedId = savedMemos.getId();
         String expectedTitle = "title";
-        String expectedText = "";
+        String expectedText = "text2";
 
         MemosUpdateRequestDto requestDto = MemosUpdateRequestDto.builder()
                 .title(expectedTitle)
@@ -82,11 +83,12 @@ public class MemosApiControllerTest {
         ResponseEntity<MemosResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, MemosResponseDto.class);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().getText()).isEqualTo(expectedText);
 
     }
 
     @Test
-    public void Memos_PUT_Update_Memo_BAD_REQUEST() throws Exception {
+    public void Memos_PUT_Update_Memo_BAD_REQUEST_ID() throws Exception {
         Memos savedMemos = memosRepository.save(Memos.builder()
                 .title("title")
                 .text("text")
@@ -147,9 +149,80 @@ public class MemosApiControllerTest {
         assertThat(responseEntity.getBody().getTitle()).isEqualTo(savedMemos.getTitle());
     }
 
+//    @Test
+//    public void Memos_Pagination_Default() throws Exception {
+//        Memos memo1 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo2 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo3 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo4 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo5 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo6 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//
+//        String url = "http://localhost:" + port + "/memos";
+//
+//        ResponseEntity<List> responseEntity = restTemplate.getForEntity(url, List.class);
+//
+//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(responseEntity.getBody().size()).isEqualTo(5);
+//    }
+
+//    @Test
+//    public void Memos_Pagination() throws Exception {
+//        Memos memo1 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo2 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo3 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo4 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo5 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//        Memos memo6 = memosRepository.save(Memos.builder()
+//                .title("title")
+//                .text("text")
+//                .build());
+//
+//        String url = "http://localhost:" + port + "/memos?page=" + 1;
+//
+//        ResponseEntity<List> responseEntity = restTemplate.getForEntity(url, List.class);
+//
+//        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+//        assertThat(responseEntity.getBody().size()).isEqualTo(1);
+//    }
+
     @Test
-    public void Memos_GET_Get_Memos_By_Date() throws Exception {
-        String targetDate = "2021-09-15";
+    public void Memos_GET_Search_Memos() throws Exception {
+        LocalDate targetDate = LocalDate.now();
+        String stringTargetDate = targetDate.toString();
 
         Memos memo1 = memosRepository.save(Memos.builder()
                 .title("title")
@@ -164,7 +237,7 @@ public class MemosApiControllerTest {
                 .text("text")
                 .build());
 
-        String url = "http://localhost:" + port + "/memos" + "?date=" + targetDate;
+        String url = "http://localhost:" + port + "/memos" + "?date=" + stringTargetDate;
 
         ResponseEntity<List> responseEntity = restTemplate.getForEntity(url, List.class);
 
