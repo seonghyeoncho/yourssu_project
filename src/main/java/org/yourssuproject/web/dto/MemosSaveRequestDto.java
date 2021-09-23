@@ -5,10 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.yourssuproject.domain.memos.Memos;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @NoArgsConstructor
 public class MemosSaveRequestDto {
+
+    @NotNull(message = "title must not be null")
     private String title;
+
+    @NotNull(message = "text must not be null")
     private String text;
 
     @Builder

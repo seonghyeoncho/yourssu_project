@@ -15,10 +15,12 @@ public class Memos extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = true, columnDefinition = "TEXT")
+
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String text;
 
     @Builder

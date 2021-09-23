@@ -1,11 +1,9 @@
 org/yourssuproject/domain/memos/Memos.java
  org.yourssuproject.domain.memos.Memos
  org.yourssuproject.domain.memos.Memos$MemosBuilder
-org/yourssuproject/web/dto/MemosSaveRequestDto.java
- org.yourssuproject.web.dto.MemosSaveRequestDto
- org.yourssuproject.web.dto.MemosSaveRequestDto$MemosSaveRequestDtoBuilder
-org/yourssuproject/common/Pagination.java
- org.yourssuproject.common.Pagination
+org/yourssuproject/web/dto/MemosUpdateRequestDto.java
+ org.yourssuproject.web.dto.MemosUpdateRequestDto
+ org.yourssuproject.web.dto.MemosUpdateRequestDto$MemosUpdateRequestDtoBuilder
 org/yourssuproject/Application.java
  org.yourssuproject.Application
 org/yourssuproject/domain/BaseTimeEntity.java
@@ -14,10 +12,10 @@ org/yourssuproject/domain/memos/MemosRepository.java
  org.yourssuproject.domain.memos.MemosRepository
 org/yourssuproject/web/dto/MemosResponseDto.java
  org.yourssuproject.web.dto.MemosResponseDto
-org/yourssuproject/web/dto/MemosUpdateRequestDto.java
- org.yourssuproject.web.dto.MemosUpdateRequestDto
- org.yourssuproject.web.dto.MemosUpdateRequestDto$MemosUpdateRequestDtoBuilder
-org/yourssuproject/web/MemosApiController.java
- org.yourssuproject.web.MemosApiController
+org/yourssuproject/web/dto/MemosSaveRequestDto.java
+ org.yourssuproject.web.dto.MemosSaveRequestDto
+ org.yourssuproject.web.dto.MemosSaveRequestDto$MemosSaveRequestDtoBuilder
 org/yourssuproject/service/memos/MemosService.java
  org.yourssuproject.service.memos.MemosService
+org/yourssuproject/web/MemosApiController.java
+ org.yourssuproject.web.MemosApiController
